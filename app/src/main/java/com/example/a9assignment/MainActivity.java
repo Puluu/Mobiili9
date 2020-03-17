@@ -3,6 +3,7 @@ package com.example.a9assignment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         public boolean onDoubleTap(MotionEvent e) {
 
             linearLayout = findViewById(R.id.layout1);
+            ColorDrawable viewColor = (ColorDrawable)linearLayout.getBackground();
+            vari = viewColor.getColor();
+
             if(vari == Color.rgb(0,0,0)){
                 linearLayout.setBackgroundColor(Color.WHITE);
             }
@@ -41,8 +45,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             linearLayout = findViewById(R.id.layout1);
-            //Velocityt toastiin
-            linearLayout.setBackgroundColor(Color.rgb(123,0,0));
+            float diffY = e2.getY() - e1.getY();
+            float diffX = e2.getX() - e1.getX();
+            if(Math.abs(diffY) > Math.abs(diffX)){
+                linearLayout.setBackgroundColor(Color.rgb(123,0,0));
+            }
+            else{
+                linearLayout.setBackgroundColor(Color.rgb(0,0,123));
+            }
             return super.onFling(e1, e2, velocityX, velocityY);
 
 
